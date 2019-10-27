@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/dara-tobi/tweet-parser/issues"
   },
-  "homepage": "https://github.com/dara-tobi/tweet-parser#readme"
+  "homepage": "https://github.com/dara-tobi/tweet-parser#readme",
+  "devDependencies": {
+    "mocha": "^6.2.2"
+  }
 }
