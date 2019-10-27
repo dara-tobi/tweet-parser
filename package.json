@@ -1,0 +1,22 @@
+{
+  "name": "tweet-parser",
+  "version": "1.0.0",
+  "description": "Get information about the characters (text, numbers, emooji, hashtags, links, mentions) in a Tweet",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dara-tobi/tweet-parser.git"
+  },
+  "keywords": [
+    "twitter"
+  ],
+  "author": "dara_tobi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dara-tobi/tweet-parser/issues"
+  },
+  "homepage": "https://github.com/dara-tobi/tweet-parser#readme"
+}
