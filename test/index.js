@@ -72,4 +72,21 @@ describe('tests', function() {
       assert.equal(parser.hasConsecutiveUpperCaseLetters(), false);
     });
   });
+
+  describe('test containsEqualUppercaseAndFullStopCharacters()', function() {
+    it('should return true when the text contains an equal number upper case and full stop characters', function() {
+      let parser = new TweetParser('This is a sample sentence 4.');
+      assert.equal(parser.containsEqualUppercaseAndFullStopCharacters(), true);
+    });
+
+    it('should return false when the text does not contain an equal number upper case and full stop characters (more upper case characters)', function() {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.equal(parser.containsEqualUppercaseAndFullStopCharacters(), false);
+    });
+
+    it('should return false when the text does not contain an equal number upper case and full stop characters (more full stops)', function() {
+      let parser = new TweetParser('this is a sample sentence 1A23...');
+      assert.equal(parser.containsEqualUppercaseAndFullStopCharacters(), false);
+    });
+  });
 });
