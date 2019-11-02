@@ -3,238 +3,238 @@ var log = console.log;
 let TweetParser = require('../lib/tweet-parser');
 let detector = require('../lib/utils/detector');
 
-describe('PARSER TESTS', function() {
-  describe('test beginsWithUpperCase()', function() {
-    it('should return true when the text begins with upper case', function() {
+describe('PARSER TESTS', () => {
+  describe('test beginsWithUpperCase()', () => {
+    it('should return true when the text begins with upper case', () => {
       let parser = new TweetParser('This is a sample sentence');
       assert.equal(parser.beginsWithUpperCase(), true);
     });
 
-    it('should return false when the text does not begin with upper case', function() {
+    it('should return false when the text does not begin with upper case', () => {
       let parser = new TweetParser('this is a sample sentence');
       assert.equal(parser.beginsWithUpperCase(), false);
     });
   });
 
-  describe('test endsWithFullStop()', function() {
-    it('should return true when the text ends with full stop', function() {
+  describe('test endsWithFullStop()', () => {
+    it('should return true when the text ends with full stop', () => {
       let parser = new TweetParser('This is a sample sentence.');
       assert.equal(parser.endsWithFullStop(), true);
     });
 
-    it('should return false when the text does not end with full stop', function() {
+    it('should return false when the text does not end with full stop', () => {
       let parser = new TweetParser('this is a sample sentence');
       assert.equal(parser.endsWithFullStop(), false);
     });
   });
 
 
-  describe('test hasDigit()', function() {
-    it('should return true when the text contains a digit', function() {
+  describe('test hasDigit()', () => {
+    it('should return true when the text contains a digit', () => {
       let parser = new TweetParser('This is a sample sentence 4.');
       assert.equal(parser.hasDigit(), true);
     });
 
-    it('should return false when the text does not contain a digit', function() {
+    it('should return false when the text does not contain a digit', () => {
       let parser = new TweetParser('this is a sample sentence');
       assert.equal(parser.hasDigit(), false);
     });
 
-    it('should return true when the text contains 0', function() {
+    it('should return true when the text contains 0', () => {
       let parser = new TweetParser('this is a sample sentence 0');
       assert.equal(parser.hasDigit(), true);
     });
 
-    it('should return false when the text does not contain a digit, and contains symbols', function() {
+    it('should return false when the text does not contain a digit, and contains symbols', () => {
       let parser = new TweetParser('this is a sample sentence ~!@#$%^&*()?":+`<>,./_');
       assert.equal(parser.hasDigit(), false);
     });
   });
 
-  describe('test hasConsecutiveUpperCaseLetters()', function() {
-    it('should return true when the text contains consecutive upper case characters', function() {
+  describe('test hasConsecutiveUpperCaseLetters()', () => {
+    it('should return true when the text contains consecutive upper case characters', () => {
       let parser = new TweetParser('THIS is a sample sentence 4.');
       assert.equal(parser.hasConsecutiveUpperCaseLetters(), true);
     });
 
-    it('should return false when the text does not contain consecutive upper case characters', function() {
+    it('should return false when the text does not contain consecutive upper case characters', () => {
       let parser = new TweetParser('Th1S is a sample sentence');
       assert.equal(parser.hasConsecutiveUpperCaseLetters(), false);
     });
 
-    it('should return false when the text does not contain consecutive upper case characters, and contains consecutive digits', function() {
+    it('should return false when the text does not contain consecutive upper case characters, and contains consecutive digits', () => {
       let parser = new TweetParser('this is a sample sentence 1A23');
       assert.equal(parser.hasConsecutiveUpperCaseLetters(), false);
     });
 
-    it('should return false when the text not contain consecutive upper case characters, and contains symbols', function() {
+    it('should return false when the text not contain consecutive upper case characters, and contains symbols', () => {
       let parser = new TweetParser('this is a sample sentence ~!@#$%^&*()?":+`<>,./_');
       assert.equal(parser.hasConsecutiveUpperCaseLetters(), false);
     });
   });
 
-  describe('test hasEqualUppercaseAndFullStopCharacters()', function() {
-    it('should return true when the text contains an equal number upper case and full stop characters', function() {
+  describe('test hasEqualUppercaseAndFullStopCharacters()', () => {
+    it('should return true when the text contains an equal number upper case and full stop characters', () => {
       let parser = new TweetParser('This is a sample sentence 4.');
       assert.equal(parser.hasEqualUppercaseAndFullStopCharacters(), true);
     });
 
-    it('should return false when the text does not contain an equal number upper case and full stop characters (more upper case characters)', function() {
+    it('should return false when the text does not contain an equal number upper case and full stop characters (more upper case characters)', () => {
       let parser = new TweetParser('Th1S is a sample sentence.');
       assert.equal(parser.hasEqualUppercaseAndFullStopCharacters(), false);
     });
 
-    it('should return false when the text does not contain an equal number upper case and full stop characters (more full stops)', function() {
+    it('should return false when the text does not contain an equal number upper case and full stop characters (more full stops)', () => {
       let parser = new TweetParser('this is a sample sentence 1A23...');
       assert.equal(parser.hasEqualUppercaseAndFullStopCharacters(), false);
     });
   });
 
-  describe('test digitCharacterCount()', function() {
-    it('should return the total number of digit characters', function() {
+  describe('test digitCharacterCount()', () => {
+    it('should return the total number of digit characters', () => {
       let parser = new TweetParser('This is a sample sentence 4.');
       assert.equal(parser.digitCharacterCount(), 1);
     });
 
-    it('should return the total number of digit characters, when the digits are embedded in alphabets', function() {
+    it('should return the total number of digit characters, when the digits are embedded in alphabets', () => {
       let parser = new TweetParser('Th1S is a sample sentence 456.');
       assert.equal(parser.digitCharacterCount(), 4);
     });
 
-    it('should return the total number of digit characters when there are no digits', function() {
+    it('should return the total number of digit characters when there are no digits', () => {
       let parser = new TweetParser('this is a sample sentence ...');
       assert.equal(parser.digitCharacterCount(), 0);
     });
   });
 
-  describe('test hasSymbol()', function() {
-    it('should return true when text contains a symbol', function() {
+  describe('test hasSymbol()', () => {
+    it('should return true when text contains a symbol', () => {
       let parser = new TweetParser("This is a sample sentence \\ 4");
       assert.equal(parser.hasSymbol(), true);
     });
 
-    it('should return false when the text contains no symbols', function() {
+    it('should return false when the text contains no symbols', () => {
       let parser = new TweetParser('This is a sample sentence 4');
       assert.equal(parser.hasSymbol(), false);
     });
   });
 
-  describe('test hasComma()', function() {
-    it('should return true when text contains a comma', function() {
+  describe('test hasComma()', () => {
+    it('should return true when text contains a comma', () => {
       let parser = new TweetParser('This is, a sample sentence 4.');
       assert.equal(parser.hasComma(), true);
     });
 
-    it('should return false when the text contains no commas', function() {
+    it('should return false when the text contains no commas', () => {
       let parser = new TweetParser('Th1S is a sample sentence 456.');
       assert.equal(parser.hasComma(), false);
     });
   });
 
-  describe('test hasExclamation()', function() {
-    it('should return true when text contains an exclamation', function() {
+  describe('test hasExclamation()', () => {
+    it('should return true when text contains an exclamation', () => {
       let parser = new TweetParser('This is a sample sentence 4!');
       assert.equal(parser.hasExclamation(), true);
     });
 
-    it('should return false when the text contains no exclamations', function() {
+    it('should return false when the text contains no exclamations', () => {
       let parser = new TweetParser('Th1S is a sample sentence 456.');
       assert.equal(parser.hasExclamation(), false);
     });
   });
 
-  describe('test hasQuotation()', function() {
-    it('should return true when text contains a quotation mark', function() {
+  describe('test hasQuotation()', () => {
+    it('should return true when text contains a quotation mark', () => {
       let parser = new TweetParser('This is a "sample" sentence 4.');
       assert.equal(parser.hasQuotation(), true);
     });
 
-    it('should return false when the text contains no quotation marks', function() {
+    it('should return false when the text contains no quotation marks', () => {
       let parser = new TweetParser('Th1S is a sample sentence 456.');
       assert.equal(parser.hasQuotation(), false);
     });
   });
 
-  describe('test hasHyphen()', function() {
-    it('should return true when text contains a hyphen', function() {
+  describe('test hasHyphen()', () => {
+    it('should return true when text contains a hyphen', () => {
       let parser = new TweetParser('This is a sample-sentence 4.');
       assert.equal(parser.hasHyphen(), true);
     });
 
-    it('should return false when the text contains hyphens', function() {
+    it('should return false when the text contains hyphens', () => {
       let parser = new TweetParser('Th1S is a sample sentence 456.');
       assert.equal(parser.hasHyphen(), false);
     });
   });
 
-  describe('test hasColon()', function() {
-    it('should return true when text contains a colon', function() {
+  describe('test hasColon()', () => {
+    it('should return true when text contains a colon', () => {
       let parser = new TweetParser('This is: a sample sentence 4.');
       assert.equal(parser.hasColon(), true);
     });
 
-    it('should return false when the text contains no colons', function() {
+    it('should return false when the text contains no colons', () => {
       let parser = new TweetParser('Th1S is a sample sentence 456.');
       assert.equal(parser.hasColon(), false);
     });
   });
 
-  describe('test hasSemiColon()', function() {
-    it('should return true when text contains a semicolon', function() {
+  describe('test hasSemiColon()', () => {
+    it('should return true when text contains a semicolon', () => {
       let parser = new TweetParser('This; is a sample sentence 4.');
       assert.equal(parser.hasSemiColon(), true);
     });
 
-    it('should return false when the text contains no semicolons', function() {
+    it('should return false when the text contains no semicolons', () => {
       let parser = new TweetParser('Th1S is a sample sentence 456.');
       assert.equal(parser.hasSemiColon(), false);
     });
   });
 
-  describe('test hasQuestionMark()', function() {
-    it('should return true when text contains a question mark', function() {
+  describe('test hasQuestionMark()', () => {
+    it('should return true when text contains a question mark', () => {
       let parser = new TweetParser('This is a sample sentence 4?');
       assert.equal(parser.hasQuestionMark(), true);
     });
 
-    it('should return false when the text contains no question marks', function() {
+    it('should return false when the text contains no question marks', () => {
       let parser = new TweetParser('Th1S is a sample sentence 456.');
       assert.equal(parser.hasQuestionMark(), false);
     });
   });
 
-  describe('test hasSpace()', function() {
-    it('should return true when text contains a space', function() {
+  describe('test hasSpace()', () => {
+    it('should return true when text contains a space', () => {
       let parser = new TweetParser('This is a sample sentence 4.');
       assert.equal(parser.hasSpace(), true);
     });
 
-    it('should return false when the text contains no spaces', function() {
+    it('should return false when the text contains no spaces', () => {
       let parser = new TweetParser('Th1Sisasamplesentence456.');
       assert.equal(parser.hasSpace(), false);
     });
   });
 });
 
-describe('DETECTOR TESTS', function() {
-  describe('test isAlphanumeric()', function() {
-    it('should return false when a character is not alphanumeric (space)', function() {
+describe('DETECTOR TESTS', () => {
+  describe('test isAlphanumeric()', () => {
+    it('should return false when a character is not alphanumeric (space)', () => {
       assert.equal(detector.isAlphanumeric(' '), false);
     });
 
-    it('should return false when a character is not alphanumeric (octotorphe)', function() {
+    it('should return false when a character is not alphanumeric (octotorphe)', () => {
       assert.equal(detector.isAlphanumeric('#'), false);
     });
 
-    it('should return false when a character is not alphanumeric (ampersat)', function() {
+    it('should return false when a character is not alphanumeric (ampersat)', () => {
       assert.equal(detector.isAlphanumeric('@'), false);
     });
 
-    it('should return true when a character is alphanumeric (alphabet)', function() {
+    it('should return true when a character is alphanumeric (alphabet)', () => {
       assert.equal(detector.isAlphanumeric('a'), true);
     });
 
-    it('should return true when a character is alphanumeric (digit)', function() {
+    it('should return true when a character is alphanumeric (digit)', () => {
       assert.equal(detector.isAlphanumeric('5'), true);
     });
   });
