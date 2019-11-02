@@ -89,4 +89,129 @@ describe('tests', function() {
       assert.equal(parser.containsEqualUppercaseAndFullStopCharacters(), false);
     });
   });
+
+  describe('test digitCharacterCount()', function() {
+    it('should return the total number of digit characters', function() {
+      let parser = new TweetParser('This is a sample sentence 4.');
+      assert.equal(parser.digitCharacterCount(), 1);
+    });
+
+    it('should return the total number of digit characters, when the digits are embedded in alphabets', function() {
+      let parser = new TweetParser('Th1S is a sample sentence 456.');
+      assert.equal(parser.digitCharacterCount(), 4);
+    });
+
+    it('should return the total number of digit characters when there are no digits', function() {
+      let parser = new TweetParser('this is a sample sentence ...');
+      assert.equal(parser.digitCharacterCount(), 0);
+    });
+  });
+
+  describe('test hasSymbol()', function() {
+    it('should return true when text contains a symbol', function() {
+      let parser = new TweetParser("This is a sample sentence \\ 4");
+      assert.equal(parser.hasSymbol(), true);
+    });
+
+    it('should return false when the text contains no symbols', function() {
+      let parser = new TweetParser('This is a sample sentence 4');
+      assert.equal(parser.hasSymbol(), false);
+    });
+  });
+
+  describe('test hasComma()', function() {
+    it('should return true when text contains a comma', function() {
+      let parser = new TweetParser('This is, a sample sentence 4.');
+      assert.equal(parser.hasComma(), true);
+    });
+
+    it('should return false when the text contains no commas', function() {
+      let parser = new TweetParser('Th1S is a sample sentence 456.');
+      assert.equal(parser.hasComma(), false);
+    });
+  });
+
+  describe('test hasExclamation()', function() {
+    it('should return true when text contains an exclamation', function() {
+      let parser = new TweetParser('This is a sample sentence 4!');
+      assert.equal(parser.hasExclamation(), true);
+    });
+
+    it('should return false when the text contains no exclamations', function() {
+      let parser = new TweetParser('Th1S is a sample sentence 456.');
+      assert.equal(parser.hasExclamation(), false);
+    });
+  });
+
+  describe('test hasQuotation()', function() {
+    it('should return true when text contains a quotation mark', function() {
+      let parser = new TweetParser('This is a "sample" sentence 4.');
+      assert.equal(parser.hasQuotation(), true);
+    });
+
+    it('should return false when the text contains no quotation marks', function() {
+      let parser = new TweetParser('Th1S is a sample sentence 456.');
+      assert.equal(parser.hasQuotation(), false);
+    });
+  });
+
+  describe('test hasHyphen()', function() {
+    it('should return true when text contains a hyphen', function() {
+      let parser = new TweetParser('This is a sample-sentence 4.');
+      assert.equal(parser.hasHyphen(), true);
+    });
+
+    it('should return false when the text contains hyphens', function() {
+      let parser = new TweetParser('Th1S is a sample sentence 456.');
+      assert.equal(parser.hasHyphen(), false);
+    });
+  });
+
+  describe('test hasColon()', function() {
+    it('should return true when text contains a colon', function() {
+      let parser = new TweetParser('This is: a sample sentence 4.');
+      assert.equal(parser.hasColon(), true);
+    });
+
+    it('should return false when the text contains no colons', function() {
+      let parser = new TweetParser('Th1S is a sample sentence 456.');
+      assert.equal(parser.hasColon(), false);
+    });
+  });
+
+  describe('test hasSemiColon()', function() {
+    it('should return true when text contains a semicolon', function() {
+      let parser = new TweetParser('This; is a sample sentence 4.');
+      assert.equal(parser.hasSemiColon(), true);
+    });
+
+    it('should return false when the text contains no semicolons', function() {
+      let parser = new TweetParser('Th1S is a sample sentence 456.');
+      assert.equal(parser.hasSemiColon(), false);
+    });
+  });
+
+  describe('test hasQuestionMark()', function() {
+    it('should return true when text contains a question mark', function() {
+      let parser = new TweetParser('This is a sample sentence 4?');
+      assert.equal(parser.hasQuestionMark(), true);
+    });
+
+    it('should return false when the text contains no question marks', function() {
+      let parser = new TweetParser('Th1S is a sample sentence 456.');
+      assert.equal(parser.hasQuestionMark(), false);
+    });
+  });
+
+  describe('test hasSpace()', function() {
+    it('should return true when text contains a space', function() {
+      let parser = new TweetParser('This is a sample sentence 4.');
+      assert.equal(parser.hasSpace(), true);
+    });
+
+    it('should return false when the text contains no spaces', function() {
+      let parser = new TweetParser('Th1Sisasamplesentence456.');
+      assert.equal(parser.hasSpace(), false);
+    });
+  });
 });
