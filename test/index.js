@@ -1,9 +1,9 @@
 var assert = require('assert');
 var log = console.log;
 let TweetParser = require('../lib/tweet-parser');
+let detector = require('../lib/utils/detector');
 
-
-describe('tests', function() {
+describe('PARSER TESTS', function() {
   describe('test beginsWithUpperCase()', function() {
     it('should return true when the text begins with upper case', function() {
       let parser = new TweetParser('This is a sample sentence');
@@ -212,6 +212,30 @@ describe('tests', function() {
     it('should return false when the text contains no spaces', function() {
       let parser = new TweetParser('Th1Sisasamplesentence456.');
       assert.equal(parser.hasSpace(), false);
+    });
+  });
+});
+
+describe('DETECTOR TESTS', function() {
+  describe('test isAlphanumeric()', function() {
+    it('should return false when a character is not alphanumeric (space)', function() {
+      assert.equal(detector.isAlphanumeric(' '), false);
+    });
+
+    it('should return false when a character is not alphanumeric (octotorphe)', function() {
+      assert.equal(detector.isAlphanumeric('#'), false);
+    });
+
+    it('should return false when a character is not alphanumeric (ampersat)', function() {
+      assert.equal(detector.isAlphanumeric('@'), false);
+    });
+
+    it('should return true when a character is alphanumeric (alphabet)', function() {
+      assert.equal(detector.isAlphanumeric('a'), true);
+    });
+
+    it('should return true when a character is alphanumeric (digit)', function() {
+      assert.equal(detector.isAlphanumeric('5'), true);
     });
   });
 });
