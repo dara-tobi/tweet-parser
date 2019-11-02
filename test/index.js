@@ -214,6 +214,30 @@ describe('PARSER TESTS', () => {
       assert.equal(parser.hasSpace(), false);
     });
   });
+
+  describe('test hasMention()', () => {
+    it('should return true when text contains a mention', () => {
+      let parser = new TweetParser('This is a @sample sentence 4.');
+      assert.equal(parser.hasMention(), true);
+    });
+
+    it('should return false when the text contains no mentions', () => {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.equal(parser.hasMention(), false);
+    });
+  });
+
+  describe('test hasHashTag()', () => {
+    it('should return true when text contains a hashtag', () => {
+      let parser = new TweetParser('This is a #sample sentence 4.');
+      assert.equal(parser.hasHashTag(), true);
+    });
+
+    it('should return false when the text contains no hashtags', () => {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.equal(parser.hasHashTag(), false);
+    });
+  });
 });
 
 describe('DETECTOR TESTS', () => {
@@ -222,7 +246,7 @@ describe('DETECTOR TESTS', () => {
       assert.equal(detector.isAlphanumeric(' '), false);
     });
 
-    it('should return false when a character is not alphanumeric (octotorphe)', () => {
+    it('should return false when a character is not alphanumeric (octothorpe)', () => {
       assert.equal(detector.isAlphanumeric('#'), false);
     });
 
