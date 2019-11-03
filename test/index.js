@@ -238,6 +238,18 @@ describe('PARSER TESTS', () => {
       assert.equal(parser.hasHashTag(), false);
     });
   });
+
+  describe('test hasEmoji()', () => {
+    it('should return true when text contains an emoji', () => {
+      let parser = new TweetParser('This is a #sample sentence 😊😊.');
+      assert.equal(parser.hasEmoji(), true);
+    });
+
+    it('should return false when the text contains no emojis', () => {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.equal(parser.hasEmoji(), false);
+    });
+  });
 });
 
 describe('DETECTOR TESTS', () => {
@@ -260,6 +272,36 @@ describe('DETECTOR TESTS', () => {
 
     it('should return true when a character is alphanumeric (digit)', () => {
       assert.equal(detector.isAlphanumeric('5'), true);
+    });
+  });
+
+  describe('test isEmoji()', () => {
+    it('should return true when a character is an emoji (laughter)', () => {
+      assert.equal(detector.isEmoji('😂'), true);
+    });
+
+    it('should return true when a character is an emoji (eggplant)', () => {
+      assert.equal(detector.isEmoji('🍆'), true);
+    });
+
+    it('should return true when a character is an emoji (car)', () => {
+      assert.equal(detector.isEmoji('🚘'), true);
+    });
+
+    it('should return true when a character is an emoji (fire)', () => {
+      assert.equal(detector.isEmoji('🔥'), true);
+    });
+
+    it('should return true when a character is an emoji (money)', () => {
+      assert.equal(detector.isEmoji('💰'), true);
+    });
+
+    it('should return false when a character is not an emoji (digits)', () => {
+      assert.equal(detector.isEmoji('2345'), false);
+    });
+
+    it('should return false when a character is not an emoji (octothorpe)', () => {
+      assert.equal(detector.isEmoji('#'), false);
     });
   });
 });
