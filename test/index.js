@@ -250,6 +250,18 @@ describe('PARSER TESTS', () => {
       assert.equal(parser.hasEmoji(), false);
     });
   });
+
+  describe('test endsWithQuestionMark()', () => {
+    it('should return true when text ends with a question mark', () => {
+      let parser = new TweetParser('This is a #sample sentence?');
+      assert.equal(parser.endsWithQuestionMark(), true);
+    });
+
+    it('should return false when the text does not end with a question mark', () => {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.equal(parser.endsWithQuestionMark(), false);
+    });
+  });
 });
 
 describe('DETECTOR TESTS', () => {
