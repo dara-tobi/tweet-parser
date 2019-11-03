@@ -316,4 +316,18 @@ describe('DETECTOR TESTS', () => {
       assert.equal(detector.isEmoji('#'), false);
     });
   });
+
+  describe('test shouldEndSentence()', () => {
+    it('should return true when a character is either . ! or ? (.)', () => {
+      assert.equal(detector.shouldEndSentence('.'), true);
+    });
+
+    it('should return true when a character is either . ! or ? (!)', () => {
+      assert.equal(detector.shouldEndSentence('!'), true);
+    });
+
+    it('should return true when a character is either . ! or ? (?)', () => {
+      assert.equal(detector.shouldEndSentence('?'), true);
+    });
+  });
 });
