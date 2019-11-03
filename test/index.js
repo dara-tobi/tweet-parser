@@ -262,6 +262,30 @@ describe('PARSER TESTS', () => {
       assert.equal(parser.endsWithQuestionMark(), false);
     });
   });
+
+  describe('test startsWithHashTag()', () => {
+    it('should return true when text starts with a hashtag', () => {
+      let parser = new TweetParser('#This is a #sample sentence?');
+      assert.equal(parser.startsWithHashTag(), true);
+    });
+
+    it('should return false when the text does not start with a hashtag', () => {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.equal(parser.startsWithHashTag(), false);
+    });
+  });
+
+  describe('test startsWithMention()', () => {
+    it('should return true when text starts with a mention', () => {
+      let parser = new TweetParser('@This is a #sample sentence?');
+      assert.equal(parser.startsWithMention(), true);
+    });
+
+    it('should return false when the text does not start with a mention', () => {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.equal(parser.startsWithMention(), false);
+    });
+  });
 });
 
 describe('DETECTOR TESTS', () => {
