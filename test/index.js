@@ -309,6 +309,29 @@ describe('PARSER TESTS', () => {
       assert.equal(parser.potentialSentenceCount(), 3);
     });
   });
+
+  describe('test endSentenceCharacterCount()', () => {
+    it('should return 2 where there are two sentence end characters', () => {
+      let parser = new TweetParser('Is this a sentence? Mark it as one.');
+      assert.equal(parser.endSentenceCharacterCount(), 2);
+    });
+
+    it('should return 1 when there is one sentence end character', () => {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.equal(parser.endSentenceCharacterCount(), 1);
+    });
+
+    it('should return 3 when there are three sentence end characters', () => {
+      let parser = new TweetParser('Th1S is a sample sentence. Yes? Yes');
+      assert.equal(parser.endSentenceCharacterCount(), 2);
+    });
+
+
+    it('should return 3 when there are three sentence end characters, but ignore consecutive-sentence end characters', () => {
+      let parser = new TweetParser('Th1S is a sample sentence... Yes? Yes!');
+      assert.equal(parser.endSentenceCharacterCount(), 3);
+    });
+  });
 });
 
 describe('DETECTOR TESTS', () => {
