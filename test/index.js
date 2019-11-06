@@ -286,6 +286,29 @@ describe('PARSER TESTS', () => {
       assert.equal(parser.startsWithMention(), false);
     });
   });
+
+  describe('test potentialSentenceCount()', () => {
+    it('should return 2 where there are two sentence endings', () => {
+      let parser = new TweetParser('Is this a sentence? Mark it as one.');
+      assert.equal(parser.potentialSentenceCount(), 2);
+    });
+
+    it('should return 1 when there is one sentence ending', () => {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.equal(parser.potentialSentenceCount(), 1);
+    });
+
+    it('should return 3 when there are three sentence endings', () => {
+      let parser = new TweetParser('Th1S is a sample sentence. Yes? Yes');
+      assert.equal(parser.potentialSentenceCount(), 3);
+    });
+
+
+    it('should return 3 when there are three sentence endings, but ignore consecutive-sentence end characters', () => {
+      let parser = new TweetParser('Th1S is a sample sentence... Yes? Yes!');
+      assert.equal(parser.potentialSentenceCount(), 3);
+    });
+  });
 });
 
 describe('DETECTOR TESTS', () => {
