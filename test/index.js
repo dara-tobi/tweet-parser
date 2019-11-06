@@ -332,6 +332,23 @@ describe('PARSER TESTS', () => {
       assert.equal(parser.endSentenceCharacterCount(), 3);
     });
   });
+
+  describe('test hasBadStructure()', () => {
+    it('should return false when there are no issues with the sentence', () => {
+      let parser = new TweetParser('Is this a sentence? Mark it as one.');
+      assert.equal(parser.hasBadStructure(), false);
+    });
+
+    it('should return true when there is no final end character', () => {
+      let parser = new TweetParser('Th1S is a sample sentence. Yes? Yes');
+      assert.equal(parser.hasBadStructure(), true);
+    });
+
+    it('should return true when there are consecutive uppercase characters', () => {
+      let parser = new TweetParser('ThIS is a sample sentence... Yes? Yes!');
+      assert.equal(parser.hasBadStructure(), true);
+    });
+  });
 });
 
 describe('DETECTOR TESTS', () => {
