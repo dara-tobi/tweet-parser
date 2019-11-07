@@ -354,6 +354,52 @@ describe('PARSER TESTS', () => {
       assert.equal(parser.hasBadStructure(), false);
     });
   });
+
+  describe('test phraseCount()', () => {
+    it('should return 2 when there are two phrases', () => {
+      let parser = new TweetParser('Is this a sentence? Mark it as one.');
+
+      assert.equal(parser.phraseCount(), 2);
+    });
+
+    it('should return 3 when there are three phrases, one phrase having no definite final end character', () => {
+      let parser = new TweetParser('Th1S is a sample sentence. Yes? Yes');
+      assert.equal(parser.phraseCount(), 3);
+    });
+
+    it('should return 3 when there are three phrases, one phrase ending in an elipses', () => {
+      let parser = new TweetParser('ThIS is a sample sentence... Yes? Yes!');
+      assert.equal(parser.phraseCount(), 3);
+    });
+
+    it('should return 1 when there is one phrase', () => {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.equal(parser.phraseCount(), 1);
+    });
+  });
+
+  describe('test phrases()', () => {
+    it('should return two phrases', () => {
+      let parser = new TweetParser('Is this a sentence? Mark it as one.');
+
+      assert.deepEqual(parser.phrases(), ['Is this a sentence?', 'Mark it as one.']);
+    });
+
+    it('should return three phrases, one phrase having no definite final end character', () => {
+      let parser = new TweetParser('Th1S is a sample sentence. Yes? Yes');
+      assert.deepEqual(parser.phrases(), ['Th1S is a sample sentence.', 'Yes?','Yes']);
+    });
+
+    it('should return three phrases, one phrase ending in an elipses', () => {
+      let parser = new TweetParser('ThIS is a sample sentence... Yes? Yes!');
+      assert.deepEqual(parser.phrases(), ['ThIS is a sample sentence...', 'Yes?', 'Yes!']);
+    });
+
+    it('should return 1 when there is one phrase', () => {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.deepEqual(parser.phrases(), ['Th1S is a sample sentence.']);
+    });
+  });
 });
 
 describe('DETECTOR TESTS', () => {
