@@ -348,6 +348,11 @@ describe('PARSER TESTS', () => {
       let parser = new TweetParser('ThIS is a sample sentence... Yes? Yes!');
       assert.equal(parser.hasBadStructure(), true);
     });
+
+    it('should return false when there is a randomly occuring uppercase character that does not start a sentence', () => {
+      let parser = new TweetParser('Th1S is a sample sentence.');
+      assert.equal(parser.hasBadStructure(), false);
+    });
   });
 });
 
