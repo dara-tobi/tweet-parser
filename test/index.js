@@ -381,7 +381,6 @@ describe('PARSER TESTS', () => {
   describe('test phrases()', () => {
     it('should return two phrases', () => {
       let parser = new TweetParser('Is this a sentence? Mark it as one.');
-
       assert.deepEqual(parser.phrases(), ['Is this a sentence?', 'Mark it as one.']);
     });
 
@@ -395,9 +394,39 @@ describe('PARSER TESTS', () => {
       assert.deepEqual(parser.phrases(), ['ThIS is a sample sentence...', 'Yes?', 'Yes!']);
     });
 
-    it('should return 1 when there is one phrase', () => {
+    it('should return one phrase when there is one phrase', () => {
       let parser = new TweetParser('Th1S is a sample sentence.');
       assert.deepEqual(parser.phrases(), ['Th1S is a sample sentence.']);
+    });
+
+    it('should return one phrase when there is one phrase that begins with an octothorpe', () => {
+      let parser = new TweetParser('#Th1S is a sample sentence.');
+      assert.deepEqual(parser.phrases(), ['#Th1S is a sample sentence.']);
+    });
+
+    it('should return one phrase when there is one phrase that begins with an ampersat', () => {
+      let parser = new TweetParser('@Th1S is a sample sentence.');
+      assert.deepEqual(parser.phrases(), ['@Th1S is a sample sentence.']);
+    });
+
+    it('should return two phrases when the second phrase begins with a hashtag', () => {
+      let parser = new TweetParser('Is this a sentence? #Mark it as one.');
+      assert.deepEqual(parser.phrases(), ['Is this a sentence?', '#Mark it as one.']);
+    });
+
+    it('should return two phrases when the second phrase beigns with a mention', () => {
+      let parser = new TweetParser('Is this a sentence? @Mark it as one.');
+      assert.deepEqual(parser.phrases(), ['Is this a sentence?', '@Mark it as one.']);
+    });
+
+    it('should return two phrases when the second phrase beings with a lowercase character', () => {
+      let parser = new TweetParser('Is this a sentence? mark it as one.');
+      assert.deepEqual(parser.phrases(), ['Is this a sentence?', 'mark it as one.']);
+    });
+
+    it('should return two phrases when the second phrase begins with a lowercase hashtag', () => {
+      let parser = new TweetParser('Is this a sentence? #mark it as one.');
+      assert.deepEqual(parser.phrases(), ['Is this a sentence?', '#mark it as one.']);
     });
   });
 });
